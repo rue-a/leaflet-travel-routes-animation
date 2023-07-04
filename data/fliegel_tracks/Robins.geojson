@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "year": "1787" }, "geometry": { "type": "Point", "coordinates": [ -76.40302, 39.94677 ] } },
+{ "type": "Feature", "properties": { "year": "1787" }, "geometry": { "type": "Point", "coordinates": [ -82.54906, 41.3981 ] } },
+{ "type": "Feature", "properties": { "year": "1790" }, "geometry": { "type": "Point", "coordinates": [ -76.40302, 39.94677 ] } }
+]
+}

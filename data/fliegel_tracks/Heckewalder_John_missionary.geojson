@@ -1,0 +1,23 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "year": "1783" }, "geometry": { "type": "Point", "coordinates": [ -83.04575, 42.33143 ] } },
+{ "type": "Feature", "properties": { "year": "1784" }, "geometry": { "type": "Point", "coordinates": [ -83.04575, 42.33143 ] } },
+{ "type": "Feature", "properties": { "year": "1785" }, "geometry": { "type": "Point", "coordinates": [ -83.04575, 42.33143 ] } },
+{ "type": "Feature", "properties": { "year": "1785" }, "geometry": { "type": "Point", "coordinates": [ -83.04575, 42.33143 ] } },
+{ "type": "Feature", "properties": { "year": "1785" }, "geometry": { "type": "Point", "coordinates": [ -83.04575, 42.33143 ] } },
+{ "type": "Feature", "properties": { "year": "1786" }, "geometry": { "type": "Point", "coordinates": [ -81.71235, 41.50366 ] } },
+{ "type": "Feature", "properties": { "year": "1786" }, "geometry": { "type": "Point", "coordinates": [ -81.71235, 41.50366 ] } },
+{ "type": "Feature", "properties": { "year": "1786" }, "geometry": { "type": "Point", "coordinates": [ -81.71235, 41.50366 ] } },
+{ "type": "Feature", "properties": { "year": "1786" }, "geometry": { "type": "Point", "coordinates": [ -83.04575, 42.33143 ] } },
+{ "type": "Feature", "properties": { "year": "1787" }, "geometry": { "type": "Point", "coordinates": [ -76.40302, 39.94677 ] } },
+{ "type": "Feature", "properties": { "year": "1788" }, "geometry": { "type": "Point", "coordinates": [ -81.45833, 39.40972 ] } },
+{ "type": "Feature", "properties": { "year": "1789" }, "geometry": { "type": "Point", "coordinates": [ -82.54906, 41.3981 ] } },
+{ "type": "Feature", "properties": { "year": "1792" }, "geometry": { "type": "Point", "coordinates": [ -76.40302, 39.94677 ] } },
+{ "type": "Feature", "properties": { "year": "1793" }, "geometry": { "type": "Point", "coordinates": [ -73.26373, 41.14121 ] } },
+{ "type": "Feature", "properties": { "year": "1798" }, "geometry": { "type": "Point", "coordinates": [ -73.26373, 41.14121 ] } },
+{ "type": "Feature", "properties": { "year": "1798" }, "geometry": { "type": "Point", "coordinates": [ -81.45818, 39.41619 ] } },
+{ "type": "Feature", "properties": { "year": "1798" }, "geometry": { "type": "Point", "coordinates": [ -83.04575, 42.33143 ] } }
+]
+}

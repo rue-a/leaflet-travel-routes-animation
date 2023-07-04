@@ -1,0 +1,12 @@
+{
+    "cSpell.words": [
+        "fliegel",
+        "timespans",
+        "trackplayback",
+        "trackplaybackcontrol"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none"
+}
