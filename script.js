@@ -112,7 +112,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 fetchData('data/fliegel_tracks_lpf/tracks.json').then(data => {
     data = parse_LPF(data);
     const trackplayback = L.trackplayback(data, map, {
-        clockOptions: { speed: 30 },
+        clockOptions: { speed: 25 },
         targetOptions: {
             useImg: true,
             imgUrl: "ship.png",
