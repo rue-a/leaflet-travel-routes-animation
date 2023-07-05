@@ -120,12 +120,19 @@
                         g = e.x + m * T,
                         x = e.y + m * k,
                         y = s.x >= e.x ? (180 * (0.5 * Math.PI - Math.asin(k))) / Math.PI : (180 * (1.5 * Math.PI + Math.asin(k))) / Math.PI;
-                    return i ? void 0 === i.dir && (i.dir = y) : (i = { lng: g, lat: x, dir: y, isOrigin: !1, time: t }), i;
+                    // #hack: append label & info
+                    return i ? void 0 === i.dir && (i.dir = y) : (i = { lng: g, lat: x, dir: y, isOrigin: !1, time: t, label: u.label, info: u.info }), i;
                 },
                 getTrackPointsBeforeTime: function (t) {
                     let i = [];
+                    // #hack change behaviour, only return past points
                     for (let e = 0, s = this._trackPoints.length; e < s; e++) this._trackPoints[e].time < t && i.push(this._trackPoints[e]);
-                    let e = this._getCalculateTrackPointByTime(t);
+                    return i
+                    // let e = this._getCalculateTrackPointByTime(t);
+                    // return e && i.push(e), i;
+                },
+                getTrackPointsAtTime: function (t) {
+                    let i = []; let e = this._getCalculateTrackPointByTime(t);
                     return e && i.push(e), i;
                 },
                 _addTrackPoint: function (t) {
@@ -167,9 +174,12 @@
                     },
                     drawTracksByTime: function (t) {
                         this._draw.clear();
-                        for (let i = 0, e = this._tracks.length; i < e; i++) {
-                            let e = this._tracks[i].getTrackPointsBeforeTime(t);
-                            e && e.length && this._draw.drawTrack(e);
+                        for (let i = 0, l = this._tracks.length; i < l; i++) {
+                            // #hack: new method for points at current time
+                            let points_before_time = this._tracks[i].getTrackPointsBeforeTime(t);
+                            points_before_time && points_before_time.length && this._draw.drawTrackPointsAndLines(points_before_time);
+                            let points_at_time = this._tracks[i].getTrackPointsAtTime(t);
+                            points_at_time && points_at_time.length && this._draw.drawTrack(points_at_time);
                         }
                     },
                     _updateTime: function () {
@@ -318,6 +328,9 @@
                     drawTrack: function (t) {
                         this._bufferTracks.push(t), this._drawTrack(t);
                     },
+                    drawTrackPointsAndLines: function (t) {
+                        this._bufferTracks.push(t), this._drawTrackPointsAndLines(t);
+                    },
                     showTrackPoint: function () {
                         (this._showTrackPoint = !0), this.update();
                     },
@@ -350,7 +363,8 @@
                                 ));
                     },
                     _onmousemoveEvt: function (t) {
-                        if (!this._showTrackPoint) return;
+                        // #hack: remove track point clause
+                        // if (!this._showTrackPoint) return;
                         let i = t.layerPoint;
                         if (this._bufferTracks.length)
                             for (let t = 0, e = this._bufferTracks.length; t < e; t++)
@@ -366,12 +380,14 @@
                             e = (this._tooltip = n.a.tooltip(this.toolTipOptions));
                         e.setLatLng(i), e.addTo(this._map), e.setContent(this._getTooltipText(t));
                     },
+                    // #hack: split past track and current position drawing routines
                     _drawTrack: function (t) {
-                        this._showTrackLine && this._drawTrackLine(t);
                         let i = t[t.length - 1];
-                        this.targetOptions.useImg && this._targetImg ? this._drawShipImage(i) : this._drawShipCanvas(i),
-                            this.targetOptions.showText && this._drawtxt(`航向：${parseInt(i.dir)}度`, i),
-                            this._showTrackPoint && (this.trackPointOptions.useCanvas ? this._drawTrackPointsCanvas(t) : this._drawTrackPointsSvg(t));
+                        this.targetOptions.useImg && this._targetImg ? this._drawIconImage(i, this.targetOptions.opacity) : this._drawIconCanvas(i), this.targetOptions.showText && this._drawtxt(`${i.label}`, i)
+                    },
+                    _drawTrackPointsAndLines: function (t) {
+                        this._showTrackLine && this._drawTrackLine(t);
+                        this._showTrackPoint && (this.trackPointOptions.useCanvas ? this._drawTrackPointsCanvas(t) : this._drawTrackPointsSvg(t));
                     },
                     _drawTrackLine: function (t) {
                         let i = this.trackLineOptions,
@@ -420,7 +436,7 @@
                             this._ctx.fillText(t, e.x, e.y - 12, 200),
                             this._ctx.restore();
                     },
-                    _drawShipCanvas: function (t) {
+                    _drawIconCanvas: function (t) {
                         let i = this._getLayerPoint(t),
                             e = t.dir || 0,
                             s = this.targetOptions.width,
@@ -442,18 +458,20 @@
                             this._ctx.stroke(),
                             this._ctx.restore();
                     },
-                    _drawShipImage: function (t) {
+                    _drawIconImage: function (t, opacity) {
                         let i = this._getLayerPoint(t),
                             e = t.dir || 0,
                             s = this.targetOptions.width,
                             n = this.targetOptions.height,
                             r = s / 2,
                             a = n / 2;
-                        this._ctx.save(), this._ctx.translate(i.x, i.y), this._ctx.rotate((Math.PI / 180) * e), this._ctx.drawImage(this._targetImg, 0 - r, 0 - a, s, n), this._ctx.restore();
+                        this._ctx.save(), this._ctx.translate(i.x, i.y), this._ctx.rotate((Math.PI / 180) * e), this._ctx.globalAlpha = opacity, this._ctx.drawImage(this._targetImg, 0 - r, 0 - a, s, n), this._ctx.restore();
                     },
                     _getTooltipText: function (t) {
                         let i = [];
-                        if ((i.push("<table>"), t.info && t.info.length)) for (let e = 0, s = t.info.length; e < s; e++) i.push("<tr>"), i.push("<td>" + t.info[e].key + "</td>"), i.push("<td>" + t.info[e].value + "</td>"), i.push("</tr>");
+                        // #hack: change behavior (to info property as dict)
+                        // if ((i.push("<table>"), t.info && t.info.length)) for (let e = 0, s = t.info.length; e < s; e++) i.push("<tr>"), i.push("<td>" + t.info[e].key + "</td>"), i.push("<td>" + t.info[e].value + "</td>"), i.push("</tr>");
+                        if ((i.push("<table>"), t.info)) for (let key of Object.keys(t.info)) i.push("<tr>"), i.push("<td>" + key + ":</td>"), i.push("<td>" + t.info[key] + "</td>"), i.push("</tr>");
                         return i.push("</table>"), (i = i.join(""));
                     },
                     _clearLayer: function () {

@@ -53,7 +53,7 @@ function parse_LPF(lpf_json) {
      * that specifies a "start.in" value that is used to idendtify the 
      * instant at which the according position is reached.
      * 
-     * target fromat:
+     * target format:
      * [
      *      [                                                       \
      *          {                                   \                |
@@ -62,14 +62,17 @@ function parse_LPF(lpf_json) {
      *              "time": <int(UNIX timestamp)>,    >     in a      > a track
      *              "dir": <float>,                  |     track     |
      *              "heading": <float>,              |               |
-     *              "info": []                       |               |
+     *              "label": <string>                |               |
+     *              "info": {                        |               | 
+     *                 <arbitrary key:val pairs>     |               |
+     *              }                                |               |
      *          },                                  /                |
      *          { ... },                            -> another pos.  |
      *      ],                                                      /
      *      [ ... ]                                                 -> another track
      * ]
      * 
-     * // ignoring heading currently
+     * # ignoring heading currently
      */
 
     const tracks = []
@@ -79,9 +82,11 @@ function parse_LPF(lpf_json) {
                 lng: geometry.coordinates[0],
                 lat: geometry.coordinates[1],
                 time: Math.floor(Date.parse(geometry.when.timespans.start.in) / 1000),
-                info: [feature.properties.title]
+                label: feature.properties.title,
+                info: { "label": feature.properties.title }
             };
         });
+        // calc dir
         let dir = 0
         track.forEach((position, i) => {
             if (i == track.length - 1) position.dir = track[i - 1].dir
@@ -116,7 +121,32 @@ fetchData('data/fliegel_tracks_lpf/tracks.json').then(data => {
         targetOptions: {
             useImg: true,
             imgUrl: "ship.png",
+            showText: true,
+            opacity: 1,
         },
+        trackPointOptions: {
+            // whether draw track point
+            isDraw: false,
+            // whether use canvas to draw it, if false, use leaflet api `L.circleMarker`
+            useCanvas: true,
+            stroke: false,
+            color: '#ef0300',
+            fill: true,
+            fillColor: '#ef0300',
+            opacity: 0.3,
+            radius: 4
+        },
+        // trackLine options
+        trackLineOptions: {
+            // whether draw track line
+            isDraw: false,
+            stroke: true,
+            color: '#000',
+            weight: 1,
+            fill: false,
+            fillColor: '#000',
+            opacity: 0.3
+        }
     });
     const trackplaybackControl = L.trackplaybackcontrol(trackplayback);
     trackplaybackControl.addTo(map);
