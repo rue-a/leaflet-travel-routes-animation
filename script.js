@@ -114,7 +114,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // get data from server
-fetchData('data/fliegel_tracks_lpf/tracks.json').then(data => {
+fetchData('data/fliegel_tracks_lpf/subset.json').then(data => {
     data = parse_LPF(data);
     const trackplayback = L.trackplayback(data, map, {
         clockOptions: { speed: 25 },

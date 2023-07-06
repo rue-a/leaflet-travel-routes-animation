@@ -1,7 +1,7 @@
 import os
 import json
 
-folder_path = "data/fliegel_tracks"
+folder_path = "data"
 output_folder = "data/fliegel_tracks_lpf"
 
 feat_coll = {
@@ -31,6 +31,6 @@ for filename in os.listdir(folder_path):
             feature["geometry"]["when"] = {"timespans": timespans}
         track["geometry"] = {"type": "GeometryCollection", "geometries": geometries}
         feat_coll["features"].append(track)
-output_file = os.path.join(output_folder, "tracks.json")
+output_file = os.path.join(output_folder, "random_path.json")
 with open(output_file, "w", encoding="utf-8") as file:
     json.dump(feat_coll, file)

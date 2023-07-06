@@ -1,0 +1,128 @@
+{
+    "type": "FeatureCollection",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1747"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -81.43428,
+                    40.3584
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1752"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -82.1234,
+                    40.5678
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1760"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -83.9876,
+                    41.1234
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1765"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -84.5678,
+                    41.8765
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1772"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -85.4321,
+                    42.3456
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1780"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -86.7890,
+                    42.9876
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1785"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -87.6543,
+                    43.6543
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1790"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -88.7890,
+                    44.1234
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "year": "1795"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -89.5678,
+                    44.8765
+                ]
+            }
+        }
+    ]
+}
